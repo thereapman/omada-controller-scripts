@@ -10,6 +10,7 @@ After=network.target
 Type=forking
 User=omada
 Group=omada
+PIDFile=/run/omada-controller.pid
 # Prepare PID file for omada user.
 ExecStartPre=!/usr/bin/touch /run/omada-controller.pid
 ExecStartPre=!/usr/bin/chown omada.omada /run/omada-controller.pid
