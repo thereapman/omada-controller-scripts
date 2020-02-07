@@ -5,6 +5,3 @@ Description=Omada runtime directory
 What=tmpfs
 Where=/run/omada-controller
 Options=uid=omada,gid=omada
-
-[Install]
-WantedBy=omada-controller-runenv.target

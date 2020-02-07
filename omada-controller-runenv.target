@@ -1,3 +1,10 @@
 [Unit]
 Description=Runtime environment for the Omada EAP controller
 PartOf=omada-controller.service
+Requires=run-omada\x2dcontroller.mount
+Requires=run-omada\x2dcontroller-data.mount
+Requires=run-omada\x2dcontroller-keystore.mount
+Requires=run-omada\x2dcontroller-lib.mount
+Requires=run-omada\x2dcontroller-logs.mount
+Requires=run-omada\x2dcontroller-properties.mount
+Requires=run-omada\x2dcontroller-webapps.mount
