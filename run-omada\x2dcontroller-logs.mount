@@ -1,0 +1,11 @@
+[Unit]
+Description=Omada runtime logging directory
+After=run-omada\x2dcontroller.mount
+Requires=run-omada\x2dcontroller.mount
+
+[Mount]
+What=/var/log/omada-controller
+Where=/run/omada-controller/logs
+
+[Install]
+WantedBy=omada-controller-runenv.target

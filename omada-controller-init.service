@@ -1,0 +1,8 @@
+[Unit]
+Description=Initializes the Omada user directory
+Before=run-omada\x2dcontroller-data.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller
+ExecStart=/usr/bin/chown omada.omada /var/lib/omada-controller

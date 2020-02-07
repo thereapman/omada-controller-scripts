@@ -1,0 +1,11 @@
+[Unit]
+Description=Omada runtime data directory
+After=run-omada\x2dcontroller.mount
+Requires=run-omada\x2dcontroller.mount
+
+[Mount]
+What=/var/lib/omada-controller
+Where=/run/omada-controller/data
+
+[Install]
+WantedBy=omada-controller-runenv.target
