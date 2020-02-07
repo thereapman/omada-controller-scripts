@@ -1,7 +1,7 @@
 [Unit]
 Description=Omada runtime configuration directory
-After=run-omada\\x2dcontroller.mount
-Requires=run-omada\\x2dcontroller.mount
+After=run-omada\x2dcontroller.mount
+Requires=run-omada\x2dcontroller.mount
 
 [Mount]
 What=/etc/omada-controller

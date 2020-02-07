@@ -1,7 +1,7 @@
 [Unit]
 Description=Omada runtime library directory
-After=run-omada\\x2dcontroller.mount
-Requires=run-omada\\x2dcontroller.mount
+After=run-omada\x2dcontroller.mount
+Requires=run-omada\x2dcontroller.mount
 
 [Mount]
 What=/usr/lib/omada-controller/lib
