@@ -1,0 +1,9 @@
+[Unit]
+Description=Omada runtime data directory
+After=run-omada\x2dcontroller.mount
+Requires=run-omada\x2dcontroller.mount
+
+[Mount]
+What=/usr/lib/omada-controller/bin
+Where=/run/omada-controller/bin
+Options=bind
