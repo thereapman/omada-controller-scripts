@@ -6,3 +6,4 @@ Requires=run-omada\x2dcontroller.mount
 [Mount]
 What=/usr/share/webapps/omada-controller
 Where=/run/omada-controller/webapps
+Options=bind

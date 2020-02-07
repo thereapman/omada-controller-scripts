@@ -6,3 +6,4 @@ Requires=run-omada\x2dcontroller.mount
 [Mount]
 What=/var/lib/omada-controller
 Where=/run/omada-controller/data
+Options=bind
