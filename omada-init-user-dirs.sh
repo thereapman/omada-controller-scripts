@@ -36,12 +36,11 @@ create_user_directories() {
         if [ -e "${DIR}" ]; then
             if [ ! -d "${DIR}" ]; then
                 printf 'File "%s" is blocking creation of eponymous directory.' "${DIR}" >&2
+                continue
             fi
-
-            continue
+        else
+            mkdir "${DIR}"
         fi
-
-        mkdir "${DIR}"
 
         if [ "$(stat -c '%U.%G' "${DIR}")" != "${OMADA_USER}.${OMADA_GROUP}" ]; then
             chown "${OMADA_USER}.${OMADA_GROUP}" "${DIR}"
