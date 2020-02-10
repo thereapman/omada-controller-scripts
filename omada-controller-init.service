@@ -1,14 +1,9 @@
 [Unit]
 Description=Initializes the Omada user directory
 Before=run-omada\x2dcontroller-data.mount
+ConditionPathIsDirectory=!/var/lib/omada-controller
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller/data
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller/data/db
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller/data/map
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller/data/portal
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller/db
-ExecStart=/usr/bin/mkdir -p /var/lib/omada-controller/map
+ExecStart=/usr/bin/mkdir /var/lib/omada-controller /var/lib/omada-controller/data /var/lib/omada-controller/data/db /var/lib/omada-controller/data/map /var/lib/omada-controller/data/portal /var/lib/omada-controller/db /var/lib/omada-controller/map
 ExecStart=/usr/bin/chown -R omada.omada /var/lib/omada-controller

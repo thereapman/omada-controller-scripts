@@ -4,6 +4,6 @@ After=run-omada\x2dcontroller.mount
 Requires=run-omada\x2dcontroller.mount
 
 [Mount]
-What=/var/lib/omada-controller
+What=/var/lib/omada-controller/data
 Where=/run/omada-controller/data
 Options=bind
