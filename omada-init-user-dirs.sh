@@ -13,7 +13,9 @@ DATA_DB_DIR="${DATA_DIR}/db"
 DATA_MAP_DIR="${DATA_DIR}/map"
 DATA_PORTAL_DIR="${DATA_DIR}/portal"
 DB_DIR="${USER_DIR}/db"
+LOGS_DIR="${USER_DIR}/logs"
 MAP_DIR="${USER_DIR}/map"
+WORK_DIR="${USER_DIR}/work"
 USER_DIRS=(
     "${USER_DIR}"
     "${DATA_DIR}"
@@ -21,9 +23,11 @@ USER_DIRS=(
     "${DATA_MAP_DIR}"
     "${DATA_PORTAL_DIR}"
     "${DB_DIR}"
+    "${LOGS_DIR}"
     "${MAP_DIR}"
+    "${WORK_DIR}"
 )
-OMADA_HOME="/usr/lib/omada-controller"
+OMADA_HOME="/opt/omada-controller"
 SYMLINKS=(
     "${DATA_DIR}"
     "${DB_DIR}"
