@@ -66,7 +66,7 @@ create_symlinks() {
             continue
         fi
 
-        LINKNAME="${OMADA_HOME}/${TARGET##*/})"
+        LINKNAME="${OMADA_HOME}/${TARGET##*/}"
 
         if [ -e "${LINKNAME}" ]; then
             if [ ! -L "${LINKNAME}" ]; then
