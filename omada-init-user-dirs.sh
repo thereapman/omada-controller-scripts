@@ -51,6 +51,11 @@ create_user_directories() {
 
 
 create_symlinks() {
+    if [ ! -d "${OMADA_HOME}" ]; then
+        printf 'Omada home "%s" is missing.' "${OMADA_HOME}" >&2
+        return 2
+    fi
+
     for TARGET in "${SYMLINKS[@]}"; do
         if [ ! -e "${TARGET}" ]; then
             printf 'Link target "%s" does not exist.' "${TARGET}" >&2
