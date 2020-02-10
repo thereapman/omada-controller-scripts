@@ -33,7 +33,8 @@ SYMLINKS = {
 }
 ERR_DIR_BLOCK = 'File "%s" is blocking creation of eponymous directory.'
 ERR_SYMLINK_BLOCK = 'File "%s" is blocking creation of eponymous symlink.'
-ERR_LINK_DST_MISSING = 'Link target "%s" does not exist or is not a directory.'
+ERR_LINK_DST_MISSING = 'Link target "%s" does not exist.'
+ERR_LINK_DST_NOT_DIR = 'Link target "%s" is not a directory.'
 LOGGER = getLogger(__file__)
 
 
@@ -41,14 +42,16 @@ def create_user_directories():
     """Creates the user directories."""
 
     for directory in USER_DIRS:
-        if not directory.is_dir():
-            try:
-                directory.mkdir(mode=0o755, parents=False, exist_ok=False)
-            except FileExistsError:
+        if directory.exists():
+            if not directory.is_dir():
                 LOGGER.error(ERR_DIR_BLOCK, directory)
 
-            if directory.owner() != USER or directory.group() != GROUP:
-                chown(directory, USER, GROUP)
+            continue
+
+        directory.mkdir(mode=0o755, parents=False, exist_ok=False)
+
+        if directory.owner() != USER or directory.group() != GROUP:
+            chown(directory, USER, GROUP)
 
 
 def create_symlinks():
@@ -57,14 +60,21 @@ def create_symlinks():
     """
 
     for src, dst in SYMLINKS.items():
-        if not src.is_symlink():
-            if dst.is_dir():
-                try:
-                    symlink(src, dst)
-                except FileExistsError:
-                    LOGGER.error(ERR_SYMLINK_BLOCK, src)
-            else:
-                LOGGER.error(ERR_LINK_DST_MISSING, dst)
+        if src.exists():
+            if not src.is_symlink():
+                LOGGER.error(ERR_SYMLINK_BLOCK, src)
+
+            continue
+
+        if not dst.exists():
+            LOGGER.error(ERR_LINK_DST_MISSING, dst)
+            continue
+
+        if not dst.is_dir():
+            LOGGER.error(ERR_LINK_DST_NOT_DIR, dst)
+            continue
+
+        symlink(src, dst)
 
 
 def main():
