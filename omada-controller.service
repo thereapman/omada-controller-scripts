@@ -1,7 +1,5 @@
 [Unit]
 Description=Omada EAP Controller
-Wants=omada-controller-init.service
-After=omada-controller-init.service
 After=network.target
 
 [Service]
