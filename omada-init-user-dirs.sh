@@ -31,7 +31,9 @@ OMADA_HOME="/opt/omada-controller"
 SYMLINKS=(
     "${DATA_DIR}"
     "${DB_DIR}"
+    "${LOGS_DIR}"
     "${MAP_DIR}"
+    "${WORK_DIR}"
 )
 
 
