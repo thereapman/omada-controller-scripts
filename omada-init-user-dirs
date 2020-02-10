@@ -1,0 +1,84 @@
+#! /usr/bin/env python3
+# pylint: disable=C0103
+"""Initializes the Omada controller user directory."""
+
+from logging import basicConfig, getLogger
+from os import chown, geteuid, symlink
+from pathlib import Path
+from sys import exit    # pylint: disable=W0622
+
+
+USER = 'omada'
+GROUP = USER
+USER_DIR = Path('/var/lib/omada-controller')
+DATA_DIR = USER_DIR.joinpath('data')
+DATA_DB_DIR = DATA_DIR.joinpath('db')
+DATA_MAP_DIR = DATA_DIR.joinpath('map')
+DATA_PORTAL_DIR = DATA_DIR.joinpath('portal')
+DB_DIR = USER_DIR.joinpath('db')
+MAP_DIR = USER_DIR.joinpath('map')
+USER_DIRS = (
+    USER_DIR,
+    DATA_DIR,
+    DATA_DB_DIR,
+    DATA_MAP_DIR,
+    DATA_PORTAL_DIR,
+    DB_DIR,
+    MAP_DIR
+)
+SYMLINKS = {
+    DATA_DIR: Path('/var/lib/omada-controller/data'),
+    DB_DIR: Path('/var/lib/omada-controller/db'),
+    MAP_DIR: Path('/var/lib/omada-controller/map')
+}
+ERR_DIR_BLOCK = 'File "%s" is blocking creation of eponymous directory.'
+ERR_SYMLINK_BLOCK = 'File "%s" is blocking creation of eponymous symlink.'
+ERR_LINK_DST_MISSING = 'Link target "%s" does not exist or is not a directory.'
+LOGGER = getLogger(__file__)
+
+
+def create_user_directories():
+    """Creates the user directories."""
+
+    for directory in USER_DIRS:
+        if not directory.is_dir():
+            try:
+                directory.mkdir(mode=0o755, parents=False, exist_ok=False)
+            except FileExistsError:
+                LOGGER.error(ERR_DIR_BLOCK, directory)
+
+            if directory.owner() != USER or directory.group() != GROUP:
+                chown(directory, USER, GROUP)
+
+
+def create_symlinks():
+    """Create symlinks to user data directories
+    within the Omada home directory.
+    """
+
+    for src, dst in SYMLINKS.items():
+        if not src.is_symlink():
+            if dst.is_dir():
+                try:
+                    symlink(src, dst)
+                except FileExistsError:
+                    LOGGER.error(ERR_SYMLINK_BLOCK, src)
+            else:
+                LOGGER.error(ERR_LINK_DST_MISSING, dst)
+
+
+def main():
+    """Main script."""
+
+    basicConfig(format='[%(levelname)s] %(name)s: %(message)s')
+
+    if geteuid() != 0:
+        LOGGER.error('You need to be root to run this script.')
+        exit(1)
+
+    create_user_directories()
+    create_symlinks()
+
+
+if __name__ == '__main__':
+    main()
