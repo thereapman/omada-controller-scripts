@@ -1,9 +1,0 @@
-[Unit]
-Description=Omada runtime database directory
-After=run-omada\x2dcontroller.mount
-Requires=run-omada\x2dcontroller.mount
-
-[Mount]
-What=/var/lib/omada-controller/db
-Where=/run/omada-controller/db
-Options=bind

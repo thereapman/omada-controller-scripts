@@ -1,8 +1,0 @@
-[Unit]
-Description=Omada runtime directory
-
-[Mount]
-What=tmpfs
-Where=/run/omada-controller
-Type=tmpfs
-Options=uid=omada,gid=omada

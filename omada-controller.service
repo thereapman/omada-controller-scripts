@@ -1,9 +1,7 @@
 [Unit]
 Description=Omada EAP Controller
 Wants=omada-controller-init.service
-Requires=omada-controller-runenv.target
 After=omada-controller-init.service
-After=omada-controller-runenv.target
 After=network.target
 
 [Service]
@@ -15,8 +13,8 @@ PIDFile=/run/omada-controller.pid
 ExecStartPre=!/usr/bin/touch /run/omada-controller.pid
 ExecStartPre=!/usr/bin/chown omada.omada /run/omada-controller.pid
 # Start the actual service.
-WorkingDirectory=/run/omada-controller
-ExecStart=/usr/bin/jsvc -pidfile /run/omada-controller.pid -home /usr/lib/jvm/java-8-openjdk/jre -cp /usr/share/java/commons-daemon.jar:/run/omada-controller/lib/* -outfile SYSLOG -errfile SYSLOG -procname omada-controller -showversion -server -Xms128m -Xmx1024m -XX:MaxHeapFreeRatio=60 -XX:MinHeapFreeRatio=30 -XX:+HeapDumpOnOutOfMemoryError -Deap.home=/run/omada-controller com.tp_link.eap.start.EapLinuxMain start
+WorkingDirectory=/usr/lib/omada-controller
+ExecStart=/usr/bin/jsvc -pidfile /run/omada-controller.pid -home /usr/lib/jvm/java-8-openjdk/jre -cp /usr/share/java/commons-daemon.jar:/usr/lib/omada-controller/lib/* -outfile SYSLOG -errfile SYSLOG -procname omada-controller -showversion -server -Xms128m -Xmx1024m -XX:MaxHeapFreeRatio=60 -XX:MinHeapFreeRatio=30 -XX:+HeapDumpOnOutOfMemoryError -Deap.home=/us/lib/omada-controller com.tp_link.eap.start.EapLinuxMain start
 ProtectHome=true
 
 [Install]
