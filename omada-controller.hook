@@ -1,0 +1,9 @@
+[Trigger]
+Type = Package
+Operation = Install
+Target = omada-controller
+
+[Action]
+Description = Initializing Omada controller user data directories...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/omada-init-user-dirs
